@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load render_bundle from webpack_loader %}  <!--import render Vue for SPA -->
+
+{% block content %}
+    <noscript>
+        <strong> <!--if no js {% } -->
+            Ci spiace, ma il frontend non funziona senza JavaScript abilitato. Abilita JavaScript per continuare!
+        </strong>
+    </noscript>
+    <div id="app">
+        
+    </div>
+    {% render_bundle 'app' %}
+{% endblock %}
