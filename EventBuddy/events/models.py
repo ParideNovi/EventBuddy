@@ -1,3 +1,4 @@
+
 from django.db import models
 from django.conf import settings
 from django.core.validators import MinValueValidator, MaxValueValidator #per il punteggio di un rating
@@ -14,11 +15,12 @@ class Event(models.Model):
     description = models.CharField(max_length=200)
     start_date = models.DateTimeField()
     location = models.CharField(max_length=120) #città
-    #photo = models.ImageField(blank=True) # da sistemare come farlo anche vuoto???????
+    picture = models.ImageField(blank=True,null=True) 
     price = models.FloatField(blank=True,default=0)
     #group_components = models.CharField(blank=true) #lista di users che aderiscono, sommati<group_limit
     group_limit = models.IntegerField(default=1)
-    
+    expired_event = models.BooleanField(default=False)
+
     def __str__(self):
         return f" { self.title } "
 
@@ -35,18 +37,9 @@ class Review(models.Model):
                                     related_name="votes")                                      
     rating = models.PositiveIntegerField(validators =[MinValueValidator(1), #the single vote(1-5) of the review about the Event
                                                         MaxValueValidator(5)])                                
-    #le reviews_ricevute le prendo da user.username=event.review.review_author??
+    
 
     def __str__(self):
         return f" { self.author.username , str(self.rating)} "
-    
-    
-'''
-    def get_expired_event(self, object):  #è metodo della classe che diventa attributo senza get_ di default
-        event_date = object.event_date
-        now = datetime.now()
-        time_delta = timesince(now, event_date) 
-        return time_delta    
-'''
-
+ 
         

@@ -23,5 +23,6 @@ urlpatterns = [
     path("reviews/<int:pk>/like/",
          ev.ReviewLikeAPIView.as_view(),
          name="review-like"),
+
 ]
 

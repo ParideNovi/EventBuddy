@@ -30,7 +30,7 @@ class UserEventListAPIView(generics.ListAPIView):
 
     def get_queryset(self):
         kwarg_author_id = self.kwargs.get("pk")
-        return Event.objects.filter(author=kwarg_author_id).order_by("-created_at")
+        return Event.objects.filter(author=kwarg_author_id,expired_event=True).order_by("-created_at")
 
 #list reviews got it from the <pk> User = event__author 
 class UserEventReviewListAPIView(generics.ListAPIView): 
@@ -42,10 +42,6 @@ class UserEventReviewListAPIView(generics.ListAPIView):
         kwarg_author_id = self.kwargs.get("pk") #get kwarg_author_id by the url key "pk"
         return Review.objects.filter(event__author=kwarg_author_id).order_by("-created_at") #the event__author of the reviews is the pk user
 
-#def get_queryset(self): to get the reviews from the username as a pk
-#kwarg_username = self.kwargs.get("username") #get username by the url key
-#        profile = get_object_or_404(Profile, user =kwarg_username) #get the object profile
-#        author_id = profile.id
 
 #Profile pk Details
 class ProfileDetailAPIView(generics.RetrieveUpdateDestroyAPIView):  

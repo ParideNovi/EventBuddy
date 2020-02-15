@@ -9,15 +9,17 @@ from events.models import Event, Review
 from events.api.serializer import EventSerializer, ReviewSerializer
 from events.api.permissions import IsAuthorOrReadOnly
 
-class  EventViewSet(viewsets.ModelViewSet): #model gives Get,Post,delete... all of the list
+
+class  EventViewSet(viewsets.ModelViewSet): #model gives Get,Post,delete... all of the list 
     ''' Modello lista eventi [IsAuthorOrReadOnly] con dettagli in /slug/'''
-    queryset = Event.objects.all().order_by("-created_at")
+    queryset = Event.objects.all().order_by("start_date")
     lookup_field = "slug"  # the queryset id parameter from the url
     serializer_class = EventSerializer
     permission_classes = [IsAuthenticated, IsAuthorOrReadOnly]
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
+
 
 class EventReviewListAPIView(generics.ListAPIView): #list Event Review (GET)
     ''' Lista degli recensioni dell'evento(slug) ''' 
@@ -30,6 +32,7 @@ class EventReviewListAPIView(generics.ListAPIView): #list Event Review (GET)
 
 class ReviewCreateAPIView(generics.CreateAPIView): #create POST Review
     ''' POST creazione review dell' evento(slug) '''
+    queryset = Event.objects.filter(expired_event=True)
     serializer_class = ReviewSerializer
     permission_classes = [IsAuthenticated]
 
@@ -40,6 +43,8 @@ class ReviewCreateAPIView(generics.CreateAPIView): #create POST Review
         #already reviewed
         if event.reviews.filter(author=request_user):   
             raise ValidationError("hai già recensito questo evento! ")
+        if event.expired_event == False:   
+            raise ValidationError(" non puoi recensire questo evento, non è ancora terminato ! ")
         serializer.save(author=request_user, event=event)
 
 
