@@ -12,7 +12,7 @@ class Event(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, #users.CustomUser
                                 on_delete=models.CASCADE,
                                 related_name="events")
-    description = models.CharField(max_length=200)
+    description = models.CharField(max_length=400)
     start_date = models.DateTimeField()
     location = models.CharField(max_length=120) #città
     picture = models.ImageField(blank=True,null=True) 
@@ -28,7 +28,7 @@ class Review(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     body   = models.TextField(blank=True, null=True)
-    event = models.ForeignKey(Event,                        #l'evento per il quale si fà review se scaduto
+    event = models.ForeignKey(Event,                        #the event of the review
                             on_delete = models.CASCADE,
                             related_name="reviews")         #le reviews di quell'evento(pk)    
     author = models.ForeignKey(settings.AUTH_USER_MODEL,            #user(pk) which writes the review

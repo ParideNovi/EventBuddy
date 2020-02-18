@@ -26,6 +26,8 @@ class ReviewSerializer(serializers.ModelSerializer):
 
     def get_user_has_voted(self, instance):
         request = self.context.get("request")          #request get to the API 
+        if request is None:
+            return False        
         return instance.voters.filter(pk=request.user.pk).exists() #True if exist my_pk(user.pk) in the voters list
 
     def get_event_slug(self, instance):
@@ -44,8 +46,6 @@ class EventSerializer(serializers.ModelSerializer):
     user_has_reviewed = serializers.SerializerMethodField(read_only=True) #a user can't reviewed his event
     #group_is_full = serializers.SerializerMethodField(read_only=True)
 
-
-
     class Meta:
         model = Event
         exclude = ["updated_at"]
@@ -58,6 +58,8 @@ class EventSerializer(serializers.ModelSerializer):
 
     def get_user_has_reviewed(self, instance): #true also if 
         request = self.context.get("request")
+        if request is None:
+            return False
         has_reviewed = instance.reviews.filter(author=request.user).exists()
         return has_reviewed    
 

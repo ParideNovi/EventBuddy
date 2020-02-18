@@ -6,7 +6,7 @@ router = DefaultRouter() #initialized
 router.register(r"events", ev.EventViewSet) 
 
 urlpatterns = [
-    path("", include(router.urls)), #endpoint ModelViewSet list /events/ and detail /events/slug/ ""
+    path("", include(router.urls)), #endpoint ModelViewSet list /events/ and detail /events/slug/ ""     
 
     path("events/<slug:slug>/review/",
          ev.ReviewCreateAPIView.as_view(),
@@ -23,6 +23,14 @@ urlpatterns = [
     path("reviews/<int:pk>/like/",
          ev.ReviewLikeAPIView.as_view(),
          name="review-like"),
+
+    path("eventsexpired/",
+         ev.EventExpiredListAPIView.as_view(),
+         name="event-expired-list"),
+
+    path("eventsactive/",
+         ev.EventActiveListAPIView.as_view(),
+         name="event-active-list"),
 
 ]
 

@@ -176,7 +176,7 @@ REST_FRAMEWORK = {
        'DEFAULT_PERMISSION_CLASSES': ( #per accesso API
         'rest_framework.permissions.IsAuthenticated',
     ),
-        'PAGE_SIZE': 9,                 #pagination element size
+        'PAGE_SIZE': 6,                 #pagination element size
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
 
 }

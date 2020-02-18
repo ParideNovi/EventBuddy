@@ -4,11 +4,6 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 # i'll extend user which eredit from the AbstractUser, istead collegate a profile to user.
 class CustomUser(AbstractUser):    #set in settings that we are using User Custom  
     pass
-    #bio = models.TextField(max_length=500,null=True, blank=True)
-    #location = models.CharField(max_length=100,null=True, blank=True)
-    #birth_date = models.DateField(null=True, blank=True)
-    #avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
-    #rating = calculated clientside as average of review(id).rating 
 
 
 #i made 2 different Models to have registered personalized fields in the admin.py 

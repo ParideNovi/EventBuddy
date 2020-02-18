@@ -16,11 +16,11 @@ class ProfileDisplaySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = "__all__"
+        fields = "__all__"  #exclude = ["avatar"]
 
 
 class ProfileAvatarSerializer(serializers.ModelSerializer): #Modelserializer specifico Avatar tramite singolo endpoit di tipo formdata (non Json)! 
- # in questo caso senza model apposito meglio usare delle generic APIview con i ViewSets
+ # in questo caso senza ModelViewSet apposito meglio usare delle generic APIview con i ViewSets nel file views.py
     class Meta:                           
         model = Profile
         fields = ["avatar"]   #permette di modificare solo gli avatar #vedi views.url

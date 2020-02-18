@@ -6,7 +6,7 @@ from django.utils.text import slugify
 from core.utils import generate_random_string 
 from events.models import Event
 
-@receiver(pre_save, sender=Event)   #when a signal is triggered  create a slug based on the attribute "content"
+@receiver(pre_save, sender=Event)   #when a signal is triggered  create a slug based on the attribute "title"
 def add_slug_to_event(sender, instance, *args, **kwargs): 
     if instance and not instance.slug:
         slug = slugify(instance.title)    #content is the slug text
