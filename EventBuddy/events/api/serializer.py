@@ -72,6 +72,13 @@ class EventSerializer(serializers.ModelSerializer):
         return time_delta == time_zero
          
 
+class EventPictureSerializer(serializers.ModelSerializer): #Modelserializer specifico Avatar tramite singolo endpoit di tipo formdata (non Json)! 
+ # in questo caso senza ModelViewSet apposito meglio usare delle generic APIview con i ViewSets nel file views.py
+    class Meta:                           
+        model = Event
+        fields = ["picture"]   #permette di modificare solo gli avatar #vedi views.url
+
+
 ''' def get_group_is_full(self, instance):
         # request = self.context.get("request")
         return group_components.count() <= group_limit'''

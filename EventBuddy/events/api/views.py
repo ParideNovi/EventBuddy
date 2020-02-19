@@ -6,7 +6,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from events.models import Event, Review
-from events.api.serializer import EventSerializer, ReviewSerializer
+from events.api.serializer import EventSerializer, ReviewSerializer,EventPictureSerializer
 from events.api.permissions import IsAuthorOrReadOnly
 from rest_framework.permissions import IsAuthenticated
 
@@ -96,3 +96,17 @@ class ReviewRUDAPIView(generics.RetrieveUpdateDestroyAPIView):  #Update, Destroy
     serializer_class = ReviewSerializer
     permission_classes = [IsAuthenticated, IsAuthorOrReadOnly]
 
+
+class PictureUpdateView(generics.UpdateAPIView):         #è piu semplice usare solo gli APIViews
+    '''Immagine Evento, API dedicato '''
+                     #use the url field to make the query
+    serializer_class = EventPictureSerializer          #
+    permission_classes = [IsAuthenticated]              #basta questo senza isOwnerOrReadOnly pechhè sovrascriviamo il metodo get_object
+
+    def get_object(self):                               #sovrascrivendo tale metodo non abbiamo bisogno di passare una chiave primaria nel nostro endpint 
+                                                        #vogliamo solo un endpoint API/avatar e lo aggiorniamo sulla base del profilo (loggato) che sta facendo la richiesta
+                                                        #farà una put solo sull'avatar(come serializzato) prendendo l'user da se stesso          
+        #event_object = self.request.event.picture    
+        kwarg_slug = self.kwargs.get("slug")
+        return Event.objects.filter(slug=kwarg_slug).first()
+                 

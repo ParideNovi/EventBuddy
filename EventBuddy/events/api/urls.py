@@ -32,5 +32,9 @@ urlpatterns = [
          ev.EventActiveListAPIView.as_view(),
          name="event-active-list"),
 
+path("events/<slug:slug>/picture/",
+     ev.PictureUpdateView.as_view(),
+     name="picture-update") #dedicated API
+
 ]
 
