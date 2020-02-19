@@ -237,9 +237,9 @@ class ReviewViewSetTestCase(APITestCase):
 
 '''
     def test_single_review_retrieve(self):
-        serializer_data = EventSerializer(instance=self.event).data#prendo i dati del nostro event salvato su DB
+        serializer_data = ReviewSerializer(instance=self.review).data#prendo i dati della nostra review salvato su DB
         #chiamata test tipo get (url diverso da quello globale)
-        response = self.client.get(reverse("event-detail", kwargs={"slug": serializer_data['slug']})) 
+        response = self.client.get(reverse("review-detail", kwargs={"slug": serializer_data['slug']})) 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         response_data = json.loads(response.content)    #carico in json i dati presi con GET 
         self.assertEqual(serializer_data, response_data) #comparo la serializzazione con il json

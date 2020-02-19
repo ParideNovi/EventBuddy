@@ -1,5 +1,9 @@
 {% extends "base.html" %}
-{% load render_bundle from webpack_loader %}  <!--import render Vue for SPA -->
+{% load static %}  
+
+{% block style %}
+    <link href="{% static 'bundle.css' %}" rel="stylesheet">
+{% endblock %}
 
 {% block content %}
     <noscript>
@@ -10,5 +14,8 @@
     <div id="app">
         
     </div>
-    {% render_bundle 'app' %}
+   
+{% endblock %}
+{% block js %}
+    <script src="{% static 'bundle.js' %}"></script>
 {% endblock %}
