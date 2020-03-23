@@ -1,0 +1,16 @@
+<!--login template-->
+{% extends "auth_layout.html" %}
+{% load crispy_forms_tags %} <!--permette l'utilizzo di tag con un certo style automatico form|crispy con style in settings-->
+
+{% block auth %}
+<h1>EventBuddy</h1>
+<p class="lead text-muted">Condividi le tue esperienze !</p>
+<div class="login-form-container">
+    <form method="post">
+        {% csrf_token %}        
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-sm btn-outline-primary">Login</button>     
+    </form>
+    <p class="mt-2">Oppure <a href="{% url 'django_registration_register' %}">Registra un Account</a></p>
+</div>
+{% endblock %}
