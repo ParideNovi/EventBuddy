@@ -1,0 +1,3 @@
+[submodule "EventBuddy/EventBuddy/frontend"]
+	path = EventBuddy/EventBuddy/frontend
+	url = https://github.com/ParideNovi/EventBuddy.git
